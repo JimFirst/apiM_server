@@ -4,34 +4,32 @@ router.prefix('/user')
 
 /**
  * @swagger
- * /v1/menu/list/${appId}:
+ * /user/login:
  *   post:
- *     description: 获取菜单列表
- *     tags: [菜单模块]
+ *     description: 登录
+ *     tags: [用户]
  *     produces:
  *       - application/json
  *     parameters:
- *     - in: "body"
- *       name: "body"
- *       description: "查询参数"
- *       schema:
- *         $ref: "#/definitions/Menu"
+ *     - in: "user"
+ *       name: "user"
+ *       description: "用户名"
+ *     - in: "password"
+ *       name: "password"
+ *       description: "密码"
  *     responses:
  *       200:
  *         description: 获取成功
  *         schema:
  *           type: object
  *           properties:
- *             total:
+ *             code:
  *               type: number
- *             rows:
- *               type: array
- *               items:
- *                   $ref: '#/definitions/MenuModel'
- *
+ *             data:
+ *               type: object
  */
 
-router.get('/login', function (ctx, next) {
+router.post('/login', function (ctx, next) {
   ctx.body = 'this is a users response!'
 })
 

@@ -8,7 +8,7 @@ const swaggerDefinition = {
     description: 'API',
   },
   host: 'localhost:3300',
-  basePath: '/' // Base path (optional)
+  basePath: '/v1' // Base path (optional)
 };
 
 const options = {

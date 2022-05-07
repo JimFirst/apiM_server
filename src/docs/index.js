@@ -1,6 +1,5 @@
 const { koaSwagger } = require('koa2-swagger-ui')
 const swagger = require('./swagger')
-const path = require('path')
 function docs(app) {
   app.use(koaSwagger({
     routePrefix: '/swagger', // host at /swagger instead of default /docs

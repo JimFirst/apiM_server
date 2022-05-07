@@ -25,7 +25,7 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
-// docs
+// docs 文档
 docs(app)
 // routes
 route(app)
