@@ -1,14 +1,10 @@
 const { db } = require('../../config.json')
 const mongoose = require('mongoose')
-function connect() {
+async function connect() {
   const options = {
-    useMongoClient: true,
-    autoReconnect: true,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval:500,
-    poolSize: 10,
-    connectTimeoutMS: 10000,
-    bufferMaxEntries: 10,
+    maxPoolSize: 50,
+    connectTimeoutMS: 2500,
+    useNewUrlParser: true,
     bufferCommands: true
   }
   if (db.user) {
@@ -19,15 +15,11 @@ function connect() {
   if (db.authSource) {
     connectString = connectString + `?authSource=${config.db.authSource}`;
   }
-  const db = mongoose.connect(connectString, options);
-  mongoose.connection.on("connected", () => {
+  try {
+    await mongoose.connect(connectString, options);
     console.log("mongodb数据库连接成功")
-  });
-  mongoose.connection.on("error", (error) => {
+  } catch (error) {
     console.log("mongodb数据库连接失败", error)
-  });
-  return db
+  }
 }
-module.exports = {
-  connect
-}
+module.exports = connect()

@@ -29,15 +29,15 @@ router.prefix('/user')
  *               type: object
  */
 
-router.post('/login', function (ctx, next) {
+router.post('/login', function (ctx) {
   ctx.body = 'this is a users response!'
 })
 
-router.post('/logout', function (ctx, next) {
+router.post('/logout', function (ctx) {
   ctx.body = 'this is a users/bar response'
 })
 
-router.post('/register', function (ctx, next) {
+router.post('/register', function (ctx) {
   ctx.body = 'this is a users/bar response'
 })
 

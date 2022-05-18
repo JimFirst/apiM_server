@@ -7,6 +7,9 @@ const logger = require('koa-logger')
 const path = require('path')
 const route = require('./routes')
 const docs = require('./docs')
+// db
+require('./utils/db')
+
 // error handler
 onerror(app)
 
