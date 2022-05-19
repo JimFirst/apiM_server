@@ -1,7 +1,15 @@
 const { db } = require('../../config.json')
 const mongoose = require('mongoose')
+interface Options {
+  maxPoolSize: number
+  connectTimeoutMS: number
+  useNewUrlParser: boolean
+  bufferCommands: boolean
+  user?: string
+  pass?: string
+}
 async function connect() {
-  const options = {
+  const options: Options = {
     maxPoolSize: 50,
     connectTimeoutMS: 2500,
     useNewUrlParser: true,
@@ -13,7 +21,7 @@ async function connect() {
   }
   let connectString = `mongodb://${db.servername}:${db.port}/${db.DATABASE}`;
   if (db.authSource) {
-    connectString = connectString + `?authSource=${config.db.authSource}`;
+    connectString = connectString + `?authSource=${db.authSource}`;
   }
   try {
     await mongoose.connect(connectString, options);
@@ -22,4 +30,4 @@ async function connect() {
     console.log("mongodb数据库连接失败", error)
   }
 }
-module.exports = connect()
+export default connect()

@@ -1,6 +1,6 @@
 const router = require('koa-router')() //引入路由函数
-const swaggerJSDoc = require('swagger-jsdoc')
-const path = require('path')
+import swaggerJSDoc from 'swagger-jsdoc';
+import path from 'path';
 const swaggerDefinition = {
   info: {
     title: 'API',
@@ -24,4 +24,4 @@ router.get('/docs', async function (ctx) {
   ctx.body = swaggerSpec;
 })
 
-module.exports = router
+export default router

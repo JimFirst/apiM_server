@@ -1,17 +1,17 @@
-const Koa = require('koa')
+import Koa from 'koa'
 const app = new Koa()
-const json = require('koa-json')
-const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')
-const logger = require('koa-logger')
-const path = require('path')
-const route = require('./routes')
-const docs = require('./docs')
+import json from 'koa-json'
+import koaOnerror from 'koa-onerror'
+import bodyparser from 'koa-bodyparser'
+import logger from 'koa-logger'
+import path from 'path'
+import route from './routes'
+import docs from './docs'
 // db
 require('./utils/db')
 
 // error handler
-onerror(app)
+koaOnerror(app)
 
 // middlewares
 app.use(bodyparser({
@@ -25,7 +25,7 @@ app.use(require('koa-static')(path.join(__dirname, '../public')))
 app.use(async (ctx, next) => {
   const start = new Date()
   await next()
-  const ms = new Date() - start
+  const ms = +new Date() - +start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 // docs 文档

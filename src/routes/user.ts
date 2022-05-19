@@ -41,4 +41,4 @@ router.post('/register', function (ctx) {
   ctx.body = 'this is a users/bar response'
 })
 
-module.exports = router
+export default router

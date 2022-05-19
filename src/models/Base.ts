@@ -1,26 +1,27 @@
-import mongoose from "mongoose"
-const Schema = mongoose.Schema
+import mongoose, { Schema, Model } from "mongoose"
 class Base {
+  public schema: Schema<any, Model<any, any, any, any>, {}, {}> | undefined
+  public Model: Model<unknown, {}, {}, {}>
   constructor() {
     this.schema = new Schema(this.getSchema())
     this.Model = mongoose.model(this.getModelName(), this.schema)
   }
   getSchema() {
-    throw Error('Model Class need getSchema function')
+    return {}
   }
   getModelName() {
-    throw Error('Model Class need name')
+    return ''
   }
-  create(data) {
+  create(data: any) {
     return this.Model.create(data)
   }
-  delete(data) {
+  delete(data: any) {
     return this.Model.remove(data)
   }
-  update(id, data) {
+  update(id: any, data: any) {
     return this.Model.updateOne({ _id: id }, data)
   }
-  find(data) {
+  find(data: any) {
     return this.Model.find(data)
   }
 }

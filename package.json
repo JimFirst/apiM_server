@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon node bin/www",
-    "serve": "./node_modules/.bin/nodemon bin/www",
+    "serve": "nodemon bin/www",
+    "build": "tsc",
     "prd": "pm2 start bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,6 +26,8 @@
     "swagger-jsdoc": "^6.2.1"
   },
   "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-router": "^7.4.4",
     "nodemon": "^1.19.4"
   }
 }

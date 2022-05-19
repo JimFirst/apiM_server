@@ -1,5 +1,5 @@
-const { koaSwagger } = require('koa2-swagger-ui')
-const swagger = require('./swagger')
+import { koaSwagger } from 'koa2-swagger-ui'
+import swagger from './swagger'
 function docs(app) {
   app.use(koaSwagger({
     routePrefix: '/swagger', // host at /swagger instead of default /docs
@@ -9,4 +9,4 @@ function docs(app) {
   }))
   app.use(swagger.routes(), swagger.allowedMethods())
 }
-module.exports = docs
+export default docs
