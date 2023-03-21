@@ -1,6 +1,7 @@
 import user from './user'
 import Router from 'koa-router'
 import Koa from 'koa'
+
 const router = new Router()
 const PREFIX = '/v1'
 function route(app: Koa) {

@@ -21,13 +21,6 @@ app.use(json())
 app.use(logger())
 app.use(require('koa-static')(path.join(__dirname, '../public')))
 
-// logger
-app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = +new Date() - +start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-})
 // docs 文档
 docs(app)
 // routes

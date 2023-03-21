@@ -8,7 +8,8 @@ class User extends Base {
     return {
       username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
       },
       password: {
         type: String,
@@ -16,11 +17,18 @@ class User extends Base {
       },
       email: String,
       phone: String,
-      role: String
+      role: String,
+      createTime: Date,
+      updateTime: Date
     }
   }
   getModelName() {
     return 'User'
+  }
+  findByUsername(username: string) {
+    return this.model.findOne({
+      username: username
+    })
   }
 }
 

@@ -1,6 +1,7 @@
 import Router from 'koa-router'
-const router = new Router()
+import UserController from '../controllers/User'
 
+const router = new Router()
 router.prefix('/user')
 
 /**
@@ -39,7 +40,7 @@ router.post('/logout', function (ctx) {
 })
 
 router.post('/register', function (ctx) {
-  ctx.body = 'this is a users/bar response'
+  return new UserController(ctx).register(ctx)
 })
 
 export default router

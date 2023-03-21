@@ -1,24 +1,57 @@
 import mongoose, { Schema, Model } from "mongoose"
+import autoIncrement from 'mongoose-auto-increment'
 abstract class Base {
-  public schema: Schema<any, Model<any, any, any, any>, {}, {}> | undefined
-  public Model: Model<unknown, {}, {}, {}>
+  public schema: Schema | undefined
+  public model: Model<unknown>
+  public modelName: string
   constructor() {
     this.schema = new Schema(this.getSchema())
-    this.Model = mongoose.model(this.getModelName(), this.schema)
+    this.modelName = this.getModelName()
+    if (this.isNeedAutoIncrement() === true) {
+      this.schema.plugin(autoIncrement.plugin, {
+        model: this.modelName,
+        field: this.getPrimaryKey(),
+        startAt: 1,
+        incrementBy: 1
+      })
+    }
+    this.model = mongoose.model(this.getModelName(), this.schema)
   }
+
+  isNeedAutoIncrement() {
+    return true;
+  }
+
+  getPrimaryKey(){
+    return '_id';
+  }
+
   abstract getSchema(): object
   abstract getModelName(): string
-  create(data: any) {
-    return this.Model.create(data)
+
+  create<T extends {}>(data: T) {
+    data = {
+      ...data,
+      createTime: Date.now(),
+      updateTime: Date.now()
+    }
+    return this.model.create(data)
   }
-  delete(data: any) {
-    return this.Model.remove(data)
+
+  deleteById(id: number) {
+    return this.model.remove({ _id: id })
   }
-  update(id: any, data: any) {
-    return this.Model.updateOne({ _id: id }, data)
+
+  updateById(id: number, data: any) {
+    data = {
+      ...data,
+      updateTime: Date.now()
+    }
+    return this.model.updateOne({ _id: id }, data)
   }
-  find(data: any) {
-    return this.Model.find(data)
+
+  findById(id: number) {
+    return this.model.find({_id: id})
   }
 }
 

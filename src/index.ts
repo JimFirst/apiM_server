@@ -1,9 +1,7 @@
  import app from './app';
 //  const debug = require('debug')('demo:server');
  import http from 'http';
-
- 
- const port = normalizePort(process.env.PORT || '3300');
+const port = normalizePort(process.env.PORT || '3300');
  // app.set('port', port);
  
  const server = http.createServer(app.callback());

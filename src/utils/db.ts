@@ -1,5 +1,8 @@
-const { db } = require('../../config.json')
+const config = require('../../config.json')
+// import mongoose from 'mongoose'
 const mongoose = require('mongoose')
+import autoIncrement from 'mongoose-auto-increment'
+
 interface Options {
   maxPoolSize: number
   connectTimeoutMS: number
@@ -15,16 +18,18 @@ async function connect() {
     useNewUrlParser: true,
     bufferCommands: true
   }
-  if (db.user) {
-    options.user = db.user
-    options.pass = db.pass
+  const dbConfig = config.db
+  if (dbConfig.user) {
+    options.user = dbConfig.user
+    options.pass = dbConfig.pass
   }
-  let connectString = `mongodb://${db.servername}:${db.port}/${db.DATABASE}`;
-  if (db.authSource) {
-    connectString = connectString + `?authSource=${db.authSource}`;
+  let connectString = `mongodb://${dbConfig.servername}:${dbConfig.port}/${dbConfig.DATABASE}`;
+  if (dbConfig.authSource) {
+    connectString = connectString + `?authSource=${dbConfig.authSource}`;
   }
   try {
-    await mongoose.connect(connectString, options);
+    const db = await mongoose.connect(connectString, options);
+    autoIncrement.initialize(db)
     console.log("mongodb数据库连接成功")
   } catch (error) {
     console.log("mongodb数据库连接失败", error)
