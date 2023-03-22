@@ -7,6 +7,7 @@ import logger from 'koa-logger'
 import path from 'path'
 import route from './routes'
 import docs from './docs'
+import koaStatic from 'koa-static'
 // db
 require('./utils/db')
 
@@ -19,7 +20,7 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(path.join(__dirname, '../public')))
+app.use(koaStatic(path.join(__dirname, '../public')))
 
 // docs 文档
 docs(app)

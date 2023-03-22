@@ -1,10 +1,12 @@
 import Base from './Base'
+import { SchemaDefinition, SchemaDefinitionType } from 'mongoose'
+import { IUser } from '../interface'
 
-class User extends Base {
+class User extends Base<IUser> {
   constructor() {
     super()
   }
-  getSchema() {
+  getSchema(): SchemaDefinition<SchemaDefinitionType<IUser>> {
     return {
       username: {
         type: String,

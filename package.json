@@ -35,6 +35,7 @@
     "@types/koa-bodyparser": "^4.3.10",
     "@types/koa-router": "^7.4.4",
     "@types/mongoose-auto-increment": "^5.0.35",
+    "@types/node-rsa": "^1.1.1",
     "@types/swagger-jsdoc": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",

@@ -1,7 +1,9 @@
 export * from './singleInstance'
 export * from './route'
+export * from './jwt'
+export * from './cipher'
 
-function getResponse<T>(data: T, code = 0, message = '成功') {
+function createResponse<T>(data: T, code = 0, message = '成功') {
   return {
     code: code,
     message: message,
@@ -9,5 +11,5 @@ function getResponse<T>(data: T, code = 0, message = '成功') {
   }
 }
 export {
-  getResponse
+  createResponse
 }

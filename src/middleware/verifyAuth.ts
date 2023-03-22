@@ -1,19 +1,16 @@
-import jwt from 'jsonwebtoken';
+import { Jwt, createResponse } from '../utils'
 import { RouterContext } from 'koa-router'
 
 export default async function verifyAtuh(ctx: RouterContext, next) {
-  console.log('鉴权');
   const authorization = ctx.headers.authorization
   if (!authorization) {
-    return ctx.body = '405'
+    return ctx.body = createResponse(null, 401, '暂无权限')
   }
   const token = authorization.replace('Bearer ', '');
   try {
-    jwt.verify(token, 'secret', {
-      algorithms:['RS256']
-    })
+    Jwt.verifyToken(token)
     await next()
   } catch (error) {
-    ctx.body = '403'
+    ctx.body = createResponse(null, 403, '暂无权限')
   }
 }

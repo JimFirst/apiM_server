@@ -1,21 +1,20 @@
-import mongoose, { Schema, Model } from "mongoose"
+import mongoose, { Schema, Model, SchemaDefinition, SchemaDefinitionType } from "mongoose"
 import autoIncrement from 'mongoose-auto-increment'
-abstract class Base {
-  public schema: Schema | undefined
-  public model: Model<unknown>
+abstract class Base<T> {
+  public model: Model<T>
   public modelName: string
   constructor() {
-    this.schema = new Schema(this.getSchema())
+    const schema = new Schema<T, Model<T>>(this.getSchema())
     this.modelName = this.getModelName()
-    if (this.isNeedAutoIncrement() === true) {
-      this.schema.plugin(autoIncrement.plugin, {
+    if (this.isNeedAutoIncrement()) {
+      schema.plugin(autoIncrement.plugin, {
         model: this.modelName,
         field: this.getPrimaryKey(),
         startAt: 1,
         incrementBy: 1
       })
     }
-    this.model = mongoose.model(this.getModelName(), this.schema)
+    this.model = mongoose.model<T>(this.getModelName(), schema)
   }
 
   isNeedAutoIncrement() {
@@ -26,10 +25,10 @@ abstract class Base {
     return '_id';
   }
 
-  abstract getSchema(): object
+  abstract getSchema(): SchemaDefinition<SchemaDefinitionType<T>>
   abstract getModelName(): string
 
-  create<T extends {}>(data: T) {
+  create<T>(data: T) {
     data = {
       ...data,
       createTime: Date.now(),
